@@ -1,11 +1,11 @@
 <html>
  
   <body>
-    <form action="auth.php" method="POST">
-      <label> Nome completo: </label>
+    <form action="" method="POST">
+      <label> Nome: </label>
       <input type="text" name="nome_com">
       <br>
-      <label> Nome de usuário: </label>
+      <label> usuário: </label>
       <input type="text" name="nome_usu">
       <br>
       <label> E-mail: </label>
@@ -22,14 +22,14 @@
 
 
 <?php
-  $nome_com=$_REQUEST['nome_com'];
-  $nome_usu=$_REQUEST['nome_usu'];
+  $nome_com=$_REQUEST['nome_c'];
+  $nome_usu=$_REQUEST['nome_u'];
   $email=$_REQUEST['email'];
   $senha=md5($_REQUEST['senha']);
   $username = "root";
   $password = "carlos";
   try {
-    $conn = new PDO('mysql:host=localhost;dbname=exercicio_php', $username, $password);
+    $conn = new PDO('mysql:host=localhost;dbname=cadastro_pessoas', $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare('SELECT * FROM usuarios WHERE email = :email');
     $stmt->bindParam(':email', $email, PDO::PARAM_INT);
@@ -44,9 +44,9 @@
 	  }
     }
     else{
-      $stmt2=$conn->prepare('INSERT INTO usuarios(nome_com,nome_usu,email,senha) values(:nome_com,:nome_usu,:email,:senha)');
-      $stmt2->bindParam(':nome_com', $nome_com, PDO::PARAM_INT);
-      $stmt2->bindParam(':nome_usu', $nome_usu, PDO::PARAM_INT);
+      $stmt2=$conn->prepare('INSERT INTO usuarios(nome_c,nome_u,email,senha) values(:nome_c,:nome_u,:email,:senha)');
+      $stmt2->bindParam(':nome_com', $nome_c, PDO::PARAM_INT);
+      $stmt2->bindParam(':nome_usu', $nome_u, PDO::PARAM_INT);
       $stmt2->bindParam(':senha',$senha,PDO::PARAM_INT);
       $affected_rows=$stmt2->execute();
       if($affected_rows>0){
